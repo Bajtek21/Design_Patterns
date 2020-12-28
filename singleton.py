@@ -1,16 +1,17 @@
 class Singleton:
     """Simple Singleton pattern"""
-    _version = "v1.0"
-    _instance = None
-    
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            instance = super().__new__(cls, *args, **kwargs)
-            cls._instance = instance
-            return cls._instance
-        else:
-            return cls._instance
+    _version = "v1.1"
+    _instances = []
+    _instances_max = 3
+    _instances_actual = -1
 
+    def __new__(cls, *args, **kwargs):
+        if len(cls._instances) < cls._instances_max:
+            instance = super().__new__(cls, *args, **kwargs)
+            cls._instances.append(instance)
+        cls._instances_actual += 1
+        cls._instances_actual = cls._instances_actual % 3
+        return cls._instances[cls._instances_actual]
 
 
 

@@ -6,8 +6,12 @@ def test_singleton_init():
     assert singleton
 
 
-def test_two_singleton_has_same_id_class():
-    singleton1 = Singleton()
-    singleton2 = Singleton()
+def test_three_singleton():
+    uniq_id = []
+    obj = []
+    for i in range(100):
+        obj.append(Singleton())
+        if id(obj[i]) not in uniq_id:
+            uniq_id.append(id(obj[i]))
 
-    assert id(singleton1) == id(singleton2)
+    assert len(uniq_id) == 3
